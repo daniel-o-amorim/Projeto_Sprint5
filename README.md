@@ -1,46 +1,67 @@
 # Projeto_Sprint5
-Este projeto faz parte do Bootcamp de Análise de Dados.
-Objetivo: desenvolver aplicativo web interativo usando Streamlit.
-Tema: Analise de Dados sobre veículos nos Estados Unidos. 
+Relatório de Veículos nos EUA
+Este projeto consiste em um aplicativo web interativo desenvolvido com Streamlit para análise e visualização de dados sobre veículos usados nos Estados Unidos. Ele permite explorar o dataset vehicles_us.csv por meio de filtros e gráficos, facilitando a compreensão do mercado automotivo.
 
-Visualização interativa de histogramas e gráficos de dispersão,
-Opçoes de filtragens de colunas relevantes (price e odometer)
-Layout responsivo e visual objetivo.
-Conversão automática de valores do odometro de milhas para quilometros
-Compativel com Render.com para deploy online.
+Funcionalidades
+Filtros interativos: selecione modelos, tipos de combustível e faixa de anos dos veículos.
 
---
-Python
-Pandas
-Plotly Express
+Visualizações gráficas:
+
+Histogramas de preços e quilometragem (em km).
+
+Gráficos de dispersão para diversas relações, como ano vs preço e quilometragem vs preço.
+
+Análises específicas: filtros adicionais para marca, combustível e faixa de anos na área principal.
+
+Download dos dados filtrados: baixe os dados atuais filtrados em formato CSV.
+
+Layout personalizado: estilo simples e agradável com CSS para melhor experiência do usuário.
+
+Estrutura do Projeto
+arduino
+Copiar
+Editar
+.
+├── README.md
+├── app.py
+├── vehicles_us.csv
+├── requirements.txt
+├── notebooks
+│   └── EDA.ipynb
+└── .streamlit
+    └── config.toml
+Como Rodar
+Clone o repositório:
+
+bash
+Copiar
+Editar
+git clone <URL_DO_REPOSITÓRIO>
+Instale as dependências:
+
+nginx
+Copiar
+Editar
+pip install -r requirements.txt
+Execute a aplicação:
+
+arduino
+Copiar
+Editar
+streamlit run app.py
+Abra o navegador no endereço informado (normalmente http://localhost:8501).
+
+Tecnologias Utilizadas
+Python 3.8+
+
 Streamlit
 
----
-Projeto_Sprint5/
-│
-├── app.py # Arquivo principal da aplicação Streamlit
-├── vehicles_us.csv # Base de dados usada no projeto
-├── streamlit/
-│ └── config.toml # Configuração para deploy no Render
-├── venv_sprint5/ # Ambiente virtual (não incluído no repositório remoto)
-└── README.md # Este arquivo
+Pandas
 
----
+Plotly Express
 
-Como executar:
-
-Clone o repositório:
-https://github.com/dsamorimInsights/Projeto_Sprint5.git
-Projeto_Sprint5
-
-Se já tiver criado o ambiente:
-.\venv_sprint5\Scripts\activate
-
-Instale os pacotes necessários
-pip install -r requirements.txt
-
-execute:
-streamlit run vehicles_us.py
+Contato
+Para dúvidas ou sugestões, entre em contato: xxxxxxxxx@xxxxxxxxx
 
 Daniel Amorim
 Bootcamp de Análise de Dados - TRIPLETEN
