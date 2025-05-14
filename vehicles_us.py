@@ -13,7 +13,7 @@ df_vehicles.dropna(subset=['price', 'model_year',
 st.set_page_config(
     page_title="Relatório de Veículos",
     layout="centered",
-    initial_sidebar_satate="auto"
+    initial_sidebar_state="auto"
 )
 # Estilo da página:
 st.markdown(
