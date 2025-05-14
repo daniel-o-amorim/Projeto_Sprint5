@@ -7,7 +7,7 @@ df_vehicles = pd.read_csv('vehicles_us.csv')
 df_vehicles['odometer_km'] = df_vehicles['odometer'] * 1.60934
 
 df_vehicles.dropna(subset=['price', 'model_year',
-                   'odometer', 'fuel'], inplace=True)
+                   'odometer', 'model', 'fuel'], inplace=True)
 
 # Config. da Página:
 st.set_page_config(
@@ -68,7 +68,17 @@ if st.checkbox("Histograma de Preços"):
     st.caption(
         "O gráfico exibe a distribuição de preços dos veículos no conjunto de dados filtrado.")
 
-# Gráfico de Dispersão:
+# Histograma de Quilometraagem (km):
+st.subheader('Histograma de Quilometragem')
+
+# Exibir histograma de quilometragem
+if st.checkbox('Mostrar histograma do odômetro em KM'):
+    fig_odo = px.histogram(df_vehicles, x='odometer_km', nbins=50,
+                           title='Distribuição de Quilometragem (KM)')
+    st.plotly_chart(fig_odo)
+
+
+# Graficos de Dispersão:
 st.subheader("Gráficos de Dispersão")
 
 if st.checkbox("Exibir gráficos de dispersão"):
@@ -109,32 +119,32 @@ if st.checkbox("Exibir gráficos de dispersão"):
 st.subheader("Análises com Filtros")
 
 # Filtros para Marcas, Combustível e Faixa de Anos
-marca = st.selectbox("Escolha a marca:", df_vehicles['make'].unique())
+marca = st.selectbox("Escolha a marca:", df_vehicles['model'].unique())
 combustivel = st.selectbox(
     "Escolha o tipo de combustível:", df_vehicles['fuel'].unique())
 faixa_anos = st.slider("Escolha a faixa de anos:",
                        int(df_vehicles['model_year'].min()), int(
                            df_vehicles['model_year'].max()),
-                       (int(df_vehicles['model_year'].min()), int(df_vehicles['model_year'].max())))
+                       int(df_vehicles['model_year'].min()), int(df_vehicles['model_year'].max()))
 
 # Filtrar os dados com base nos filtros escolhidos
-df_filtrado = df_vehicles[(df_vehicles['make'] == marca) & (df_vehicles['fuel'] == combustivel) &
+df_filtrado = df_vehicles[(df_vehicles['model'] == marca) & (df_vehicles['fuel'] == combustivel) &
                           (df_vehicles['model_year'] >= faixa_anos[0]) & (df_vehicles['model_year'] <= faixa_anos[1])]
 
 # Mostrar uma tabela com os dados filtrados
 st.write(
-    f"Mostrando {len(df_filtrado)} veículos com as características escolhidas:")
-st.dataframe(df_filtrado)
+    f"Mostrando {len(df_vehicles)} veículos com as características escolhidas:")
+st.dataframe(df_vehicles)
 
 # ======== DOWNLOAD DOS DADOS FILTRADOS ========
 
 
 @st.cache
-def convert_df(df):
-    return df.to_csv(index=False).encode('utf-8')
+def convert_df(df_vehicles):
+    return df_vehicles.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(df_filtrado)
+csv = convert_df(df_vehicles)
 
 st.download_button(
     label="Baixar Dados Filtrados",
@@ -142,12 +152,3 @@ st.download_button(
     file_name='dados_veiculos_filtrados.csv',
     mime='text/csv'
 )
-
-# ======== HISTOGRAMA DE QUILOMETRAGEM ========
-st.subheader('Histograma de Quilometragem')
-
-# Exibir histograma de quilometragem
-if st.checkbox('Mostrar histograma do odômetro em KM'):
-    fig_odo = px.histogram(df_vehicles, x='odometer_km', nbins=50,
-                           title='Distribuição de Quilometragem (KM)')
-    st.plotly_chart(fig_odo)
