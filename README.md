@@ -1,72 +1,76 @@
 # Projeto_Sprint5
-Relatório de Veículos nos EUA
-Este projeto consiste em um aplicativo web interativo desenvolvido com Streamlit para análise e visualização de dados sobre veículos usados nos Estados Unidos. Ele permite explorar o dataset vehicles_us.csv por meio de filtros e gráficos, facilitando a compreensão do mercado automotivo.
+# Relatório de Análise de Veículos nos EUA
 
-Funcionalidades
-Filtros interativos: selecione modelos, tipos de combustível e faixa de anos dos veículos.
+Este projeto é um aplicativo web interativo construído com Streamlit, que realiza uma análise exploratória dos dados de veículos usados nos Estados Unidos. A aplicação permite visualizar histogramas, gráficos de dispersão e aplicar filtros nos dados de forma prática e intuitiva.
 
-Visualizações gráficas:
+## Funcionalidades
 
-Histogramas de preços e quilometragem (em km).
+- Filtragem por marca, tipo de combustível e faixa de anos
+- Visualização de histogramas para preços e quilometragens
+- Geração de gráficos de dispersão entre variáveis selecionáveis
+- Exibição de tabela de dados filtrados
+- Download dos dados filtrados em .csv
 
-Gráficos de dispersão para diversas relações, como ano vs preço e quilometragem vs preço.
-
-Análises específicas: filtros adicionais para marca, combustível e faixa de anos na área principal.
-
-Download dos dados filtrados: baixe os dados atuais filtrados em formato CSV.
-
-Layout personalizado: estilo simples e agradável com CSS para melhor experiência do usuário.
-
-Estrutura do Projeto
-arduino
-Copiar
-Editar
+## Estrutura do Projeto
 .
 ├── README.md
-├── app.py
+├── vehicles_us.py # Código principal do app Streamlit
+├── vehicles_us.csv # Base de dados
+├── requirement.txt # Bibliotecas necessárias
+├── notebooks/
+│ └── EDA.ipynb # Análise exploratória (Jupyter)
+└── streamlit/
+└── config.toml # Configuração para Render
+
+## Aplicativo Online
+
+Acesse o aplicativo em:  
+https://vehicles-us.onrender.com  
+(Substitua pela sua URL real, se necessário.)
+
+## Implantação no Render
+
+Para implantar este projeto na Render:
+
+1. Suba o repositório para o GitHub
+2. Acesse o site da Render e crie um novo Web Service
+3. Conecte o repositório ao serviço
+4. Configure os comandos:
+
+- Build Command:
+pip install --upgrade pip && pip install -r requirement.txt
+- Start Command:
+streamlit run vehicles_us.py
+
+## Requisitos Atendidos
+
+- Cabeçalho com texto
+- Pelo menos 1 histograma
+- Pelo menos 1 gráfico de dispersão
+- Pelo menos um botão ou caixa de seleção
+- Aplicativo acessível via navegador
+- Estrutura de arquivos exigida:
+.
+├── README.md
+├── vehicles_us.py
 ├── vehicles_us.csv
-├── requirements.txt
-├── notebooks
-│   └── EDA.ipynb
-└── .streamlit
-    └── config.toml
-Como Rodar
-Clone o repositório:
+├── requirement.txt
+├── notebooks/
+│ └── EDA.ipynb
+└── streamlit/
+└── config.toml
 
-bash
-Copiar
-Editar
-git clone <URL_DO_REPOSITÓRIO>
-Instale as dependências:
+## Fonte dos Dados
 
-nginx
-Copiar
-Editar
-pip install -r requirements.txt
-Execute a aplicação:
+O dataset `vehicles_us.csv` contém dados de veículos usados à venda nos Estados Unidos, incluindo preço, marca, tipo de combustível, quilometragem e ano de fabricação.
 
-arduino
-Copiar
-Editar
-streamlit run app.py
-Abra o navegador no endereço informado (normalmente http://localhost:8501).
-
-Tecnologias Utilizadas
-Python 3.8+
-
-Streamlit
-
-Pandas
-
-Plotly Express
-
-Contato
-Para dúvidas ou sugestões, entre em contato: xxxxxxxxx@xxxxxxxxx
+## Autor
 
 Daniel Amorim
 Bootcamp de Análise de Dados - TRIPLETEN
 Licenciado em Publicidade, Marketing e Relações Públicas
 Pós-Graduado em Branding (IPAM)
+
 
 
 
