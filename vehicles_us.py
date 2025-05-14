@@ -3,7 +3,7 @@ import plotly.express as px
 import streamlit as st
 
 # Carregamento e Limpeza dos dados:
-df_vehicles = pd.read_csv('vehicles.csv')
+df_vehicles = pd.read_csv('vehicles_us.csv')
 df_vehicles['odometer'] = df_vehicles['odometer'] * 1.60934
 df_vehicles.dropna(subset=['price', 'model_year',
                    'odometer_km', 'manufacturer', 'fuel'], inplace=True)
