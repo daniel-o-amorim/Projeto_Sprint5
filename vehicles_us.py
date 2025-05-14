@@ -2,96 +2,112 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-# Carregamento e Limpeza dos dados:
+# Carregamento e limpeza:
 df_vehicles = pd.read_csv('vehicles_us.csv')
 df_vehicles['odometer_km'] = df_vehicles['odometer'] * 1.60934
+df_vehicles = df_vehicles.dropna()
+df_vehicles['model_year'] = df_vehicles['model_year'].astype(int)
 
-df_vehicles.dropna(subset=['price', 'model_year',
-                   'odometer', 'model', 'fuel'], inplace=True)
-
-# Config. da Página:
+# Configuração da página:
 st.set_page_config(
     page_title="Relatório de Veículos",
     layout="centered",
     initial_sidebar_state="auto"
 )
-# Estilo da página:
-st.markdown(
-    """
-    <style>
-    .Body {
-        background-color: #f5f5f5;
-        color: #111;
-        font-family: 'Seagoe UI' , sans-serif;
-    }
-    .main {
+
+# Estilo corrigido:
+st.markdown("""
+<style>
+.Body {
+    background-color: #f5f5f5;
+    color: #111;
+    font-family: 'Segoe UI', sans-serif;
+}
+.main {
     background-color: white;
-        border-radius: 10px;
-        padding: ;
-        color: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-    </style>
-    """, unsafe_allow_html=True
-)
+    border-radius: 10px;
+    padding: 1rem;
+    font-size: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+</style>
+""", unsafe_allow_html=True)
 
 st.title("Relatório de Veículos nos EUA")
 
-# Filtros adicionais
+# FILTROS na sidebar:
 st.sidebar.header("Filtros")
-modelos = st.sidebar.multiselect(
-    "Modelo do veículo:", options=sorted(df_vehicles['model'].unique()))
+
+marca = st.sidebar.multiselect(
+    "Marca do veículo:",
+    options=sorted(df_vehicles['make'].unique())
+)
+
+modelo = st.sidebar.multiselect(
+    "Modelo do veículo:",
+    options=sorted(df_vehicles['model'].unique())
+)
+
 combustivel = st.sidebar.multiselect(
-    "Tipo de combustível:", options=sorted(df_vehicles['fuel'].unique()))
-ano = st.sidebar.slider("Ano do modelo:", int(df_vehicles['model_year'].min()), int(
-    df_vehicles['model_year'].max()), (2010, 2020))
+    "Tipo de combustível:",
+    options=sorted(df_vehicles['fuel'].unique())
+)
+
+ano = st.sidebar.slider(
+    "Ano do modelo:",
+    int(df_vehicles['model_year'].min()),
+    int(df_vehicles['model_year'].max()),
+    (int(df_vehicles['model_year'].min()),
+     int(df_vehicles['model_year'].max()))
+)
 
 # Aplicação dos filtros:
-df_vehicles = df_vehicles.copy()
-if modelos:
-    df_vehicles = df_vehicles[df_vehicles['model'].isin(modelos)]
+df_filtrado = df_vehicles.copy()
+
+if marca:
+    df_filtrado = df_filtrado[df_filtrado['make'].isin(marca)]
+if modelo:
+    df_filtrado = df_filtrado[df_filtrado['model'].isin(modelo)]
 if combustivel:
-    df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
+    df_filtrado = df_filtrado[df_filtrado['fuel'].isin(combustivel)]
 if ano:
-    df_vehicles = df_vehicles[(df_vehicles['model_year'] >= ano[0]) & (
-        df_vehicles['model_year'] <= ano[1])]
+    df_filtrado = df_filtrado[
+        (df_filtrado['model_year'] >= ano[0]) &
+        (df_filtrado['model_year'] <= ano[1])
+    ]
 
-st.markdown("Análise visual com filtros aplicados:")
+st.markdown("Realize a filtragem e verifique os gráficos:")
 
-# Histograma de Preços:
+# Histograma de preços:
 if st.checkbox("Histograma de Preços"):
     st.subheader("Distribuição de Preços dos Veículos")
-    fig_hist = px.histogram(df_vehicles, x='price', nbins=50,
+    fig_hist = px.histogram(df_filtrado, x='price', nbins=50,
                             title="Distribuição de Preços dos Veículos",
                             labels={'price': 'Preço (USD)'})
     st.plotly_chart(fig_hist)
     st.caption(
         "O gráfico exibe a distribuição de preços dos veículos no conjunto de dados filtrado.")
 
-# Histograma de Quilometraagem (km):
-st.subheader('Histograma de Quilometragem')
-
-# Exibir histograma de quilometragem
-if st.checkbox('Mostrar histograma do odômetro em KM'):
-    fig_odo = px.histogram(df_vehicles, x='odometer_km', nbins=50,
+# Histograma de quilometragem:
+if st.checkbox("Histograma de Quilometragem (KM)"):
+    st.subheader('Histograma de Quilometragem')
+    fig_odo = px.histogram(df_filtrado, x='odometer_km', nbins=50,
                            title='Distribuição de Quilometragem (KM)')
     st.plotly_chart(fig_odo)
 
-
-# Graficos de Dispersão:
-st.subheader("Gráficos de Dispersão")
-
+# Gráficos de dispersão:
 if st.checkbox("Exibir gráficos de dispersão"):
+    st.subheader("Gráficos de Dispersão")
     opcao_disp = st.selectbox("Escolha a relação para visualizar:", [
         "Ano do Modelo vs Preço",
-        "Quilometro (KM) vs Preço",
-        "Ano do Modelo vs Quilometro (KM)",
+        "Quilômetro (KM) vs Preço",
+        "Ano do Modelo vs Quilômetro (KM)",
         "Cilindros vs Preço",
-        "Dias listados vs Preço",
+        "Dias listados vs Preço"
     ])
 
     if opcao_disp == "Ano do Modelo vs Preço":
-        fig_disp = px.scatter(df_vehicles, x='model_year', y='price',
+        fig_disp = px.scatter(df_filtrado, x='model_year', y='price',
                               title="Ano do Modelo vs Preço",
                               labels={'model_year': 'Ano do Modelo',
                                       'price': 'Preço (USD)'},
@@ -99,52 +115,44 @@ if st.checkbox("Exibir gráficos de dispersão"):
         st.plotly_chart(fig_disp)
         st.caption(
             "O gráfico mostra se veículos mais novos tendem a ter preços mais altos.")
-    elif opcao_disp == "Odômetro (KM) vs Preço":
-        fig = px.scatter(df_vehicles, x='odometer_km', y='price',
-                         title='Odômetro (KM) vs Preço',
+    elif opcao_disp == "Quilômetro (KM) vs Preço":
+        fig = px.scatter(df_filtrado, x='odometer_km', y='price',
+                         title='Quilômetro (KM) vs Preço',
                          labels={
-                             'odometer_km': 'Odômetro (KM)', 'price': 'Preço (USD)'},
+                             'odometer_km': 'Quilômetro (KM)', 'price': 'Preço (USD)'},
                          opacity=0.5)
         st.plotly_chart(fig)
-
-    elif opcao_disp == "Ano do Modelo vs Odômetro (KM)":
-        fig = px.scatter(df_vehicles, x='model_year', y='odometer_km',
-                         title='Ano do Modelo vs Odômetro (KM)',
+    elif opcao_disp == "Ano do Modelo vs Quilômetro (KM)":
+        fig = px.scatter(df_filtrado, x='model_year', y='odometer_km',
+                         title='Ano do Modelo vs Quilômetro (KM)',
                          labels={'model_year': 'Ano do Modelo',
-                                 'odometer_km': 'Odômetro (KM)'},
+                                 'odometer_km': 'Quilômetro (KM)'},
+                         opacity=0.5)
+        st.plotly_chart(fig)
+    elif opcao_disp == "Cilindros vs Preço":
+        fig = px.scatter(df_filtrado, x='cylinders', y='price',
+                         title='Cilindros vs Preço',
+                         labels={'cylinders': 'Número de Cilindros',
+                                 'price': 'Preço (USD)'},
+                         opacity=0.5)
+        st.plotly_chart(fig)
+    elif opcao_disp == "Dias listados vs Preço":
+        fig = px.scatter(df_filtrado, x='days_listed', y='price',
+                         title='Dias listados vs Preço',
+                         labels={'days_listed': 'Dias listados',
+                                 'price': 'Preço (USD)'},
                          opacity=0.5)
         st.plotly_chart(fig)
 
-# ======== FILTROS E ANÁLISES ADICIONAIS ========
-st.subheader("Análises com Filtros")
-
-# Filtros para Marcas, Combustível e Faixa de Anos
-marca = st.selectbox("Escolha a marca:", df_vehicles['model'].unique())
-combustivel = st.selectbox(
-    "Escolha o tipo de combustível:", df_vehicles['fuel'].unique())
-faixa_anos = st.slider("Escolha a faixa de anos:",
-                       int(df_vehicles['model_year'].min()), int(
-                           df_vehicles['model_year'].max()),
-                       int(df_vehicles['model_year'].min()), int(df_vehicles['model_year'].max()))
-
-# Filtrar os dados com base nos filtros escolhidos
-df_filtrado = df_vehicles[(df_vehicles['model'] == marca) & (df_vehicles['fuel'] == combustivel) &
-                          (df_vehicles['model_year'] >= faixa_anos[0]) & (df_vehicles['model_year'] <= faixa_anos[1])]
-
-# Mostrar uma tabela com os dados filtrados
-st.write(
-    f"Mostrando {len(df_vehicles)} veículos com as características escolhidas:")
-st.dataframe(df_vehicles)
-
-# ======== DOWNLOAD DOS DADOS FILTRADOS ========
+# Download dos dados filtrados:
 
 
-@st.cache
-def convert_df(df_vehicles):
-    return df_vehicles.to_csv(index=False).encode('utf-8')
+@st.cache_data
+def convert_df(df):
+    return df.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(df_vehicles)
+csv = convert_df(df_filtrado)
 
 st.download_button(
     label="Baixar Dados Filtrados",
