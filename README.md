@@ -25,10 +25,7 @@ Este projeto é um aplicativo web interativo construído com Streamlit, que real
 ## Aplicativo Online
 
 Acesse o aplicativo em:  
-https://vehicles-us.onrender.com  
-(Substitua pela sua URL real, se necessário.)
-
-## Implantação no Render
+https://projeto-sprint5-danielamorim.onrender.com 
 
 Para implantar este projeto na Render:
 
