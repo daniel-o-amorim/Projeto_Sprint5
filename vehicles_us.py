@@ -38,11 +38,6 @@ st.title("Relatório de Veículos nos EUA")
 # FILTROS na sidebar:
 st.sidebar.header("Filtros")
 
-marca = st.sidebar.multiselect(
-    "Marca do veículo:",
-    options=sorted(df_vehicles['make'].unique())
-)
-
 modelo = st.sidebar.multiselect(
     "Modelo do veículo:",
     options=sorted(df_vehicles['model'].unique())
@@ -62,16 +57,16 @@ ano = st.sidebar.slider(
 )
 
 # Aplicação dos filtros:
-df_filtrado = df_vehicles.copy()
+df_vehicles.copy()
 
 if marca:
-    df_filtrado = df_filtrado[df_filtrado['make'].isin(marca)]
+    df_vehicles = df_vehicles[df_vehicles['model'].isin(marca)]
 if modelo:
-    df_filtrado = df_filtrado[df_filtrado['model'].isin(modelo)]
+    df_vehicles = df_vehicles[df_vehicles['model'].isin(modelo)]
 if combustivel:
-    df_filtrado = df_filtrado[df_filtrado['fuel'].isin(combustivel)]
+    df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
 if ano:
-    df_filtrado = df_filtrado[
+    df_vehicles = df_vehicles[
         (df_filtrado['model_year'] >= ano[0]) &
         (df_filtrado['model_year'] <= ano[1])
     ]
@@ -81,7 +76,7 @@ st.markdown("Realize a filtragem e verifique os gráficos:")
 # Histograma de preços:
 if st.checkbox("Histograma de Preços"):
     st.subheader("Distribuição de Preços dos Veículos")
-    fig_hist = px.histogram(df_filtrado, x='price', nbins=50,
+    fig_hist = px.histogram(df_vehicles, x='price', nbins=50,
                             title="Distribuição de Preços dos Veículos",
                             labels={'price': 'Preço (USD)'})
     st.plotly_chart(fig_hist)
@@ -91,7 +86,7 @@ if st.checkbox("Histograma de Preços"):
 # Histograma de quilometragem:
 if st.checkbox("Histograma de Quilometragem (KM)"):
     st.subheader('Histograma de Quilometragem')
-    fig_odo = px.histogram(df_filtrado, x='odometer_km', nbins=50,
+    fig_odo = px.histogram(df_vehicles, x='odometer_km', nbins=50,
                            title='Distribuição de Quilometragem (KM)')
     st.plotly_chart(fig_odo)
 
@@ -107,7 +102,7 @@ if st.checkbox("Exibir gráficos de dispersão"):
     ])
 
     if opcao_disp == "Ano do Modelo vs Preço":
-        fig_disp = px.scatter(df_filtrado, x='model_year', y='price',
+        fig_disp = px.scatter(df_vehicles, x='model_year', y='price',
                               title="Ano do Modelo vs Preço",
                               labels={'model_year': 'Ano do Modelo',
                                       'price': 'Preço (USD)'},
@@ -116,28 +111,28 @@ if st.checkbox("Exibir gráficos de dispersão"):
         st.caption(
             "O gráfico mostra se veículos mais novos tendem a ter preços mais altos.")
     elif opcao_disp == "Quilômetro (KM) vs Preço":
-        fig = px.scatter(df_filtrado, x='odometer_km', y='price',
+        fig = px.scatter(df_vehicles, x='odometer_km', y='price',
                          title='Quilômetro (KM) vs Preço',
                          labels={
                              'odometer_km': 'Quilômetro (KM)', 'price': 'Preço (USD)'},
                          opacity=0.5)
         st.plotly_chart(fig)
     elif opcao_disp == "Ano do Modelo vs Quilômetro (KM)":
-        fig = px.scatter(df_filtrado, x='model_year', y='odometer_km',
+        fig = px.scatter(df_vehicles, x='model_year', y='odometer_km',
                          title='Ano do Modelo vs Quilômetro (KM)',
                          labels={'model_year': 'Ano do Modelo',
                                  'odometer_km': 'Quilômetro (KM)'},
                          opacity=0.5)
         st.plotly_chart(fig)
     elif opcao_disp == "Cilindros vs Preço":
-        fig = px.scatter(df_filtrado, x='cylinders', y='price',
+        fig = px.scatter(df_vehicles, x='cylinders', y='price',
                          title='Cilindros vs Preço',
                          labels={'cylinders': 'Número de Cilindros',
                                  'price': 'Preço (USD)'},
                          opacity=0.5)
         st.plotly_chart(fig)
     elif opcao_disp == "Dias listados vs Preço":
-        fig = px.scatter(df_filtrado, x='days_listed', y='price',
+        fig = px.scatter(ddf_vehicles, x='days_listed', y='price',
                          title='Dias listados vs Preço',
                          labels={'days_listed': 'Dias listados',
                                  'price': 'Preço (USD)'},
@@ -148,11 +143,11 @@ if st.checkbox("Exibir gráficos de dispersão"):
 
 
 @st.cache_data
-def convert_df(df):
-    return df.to_csv(index=False).encode('utf-8')
+def convert_df(df_vehicles):
+    return df_vehicles.to_csv(index=False).encode('utf-8')
 
 
-csv = convert_df(df_filtrado)
+csv = convert_df(df_vehicles)
 
 st.download_button(
     label="Baixar Dados Filtrados",
