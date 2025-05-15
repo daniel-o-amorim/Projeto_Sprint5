@@ -59,7 +59,7 @@ ano = st.sidebar.slider(
 # Aplicação dos filtros:
 df_vehicles.copy()
 
-if marca:
+if modelo:
     df_vehicles = df_vehicles[df_vehicles['model'].isin(marca)]
 if modelo:
     df_vehicles = df_vehicles[df_vehicles['model'].isin(modelo)]
@@ -67,8 +67,8 @@ if combustivel:
     df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
 if ano:
     df_vehicles = df_vehicles[
-        (df_filtrado['model_year'] >= ano[0]) &
-        (df_filtrado['model_year'] <= ano[1])
+        (df_vehicles['model_year'] >= ano[0]) &
+        (df_vehicles['model_year'] <= ano[1])
     ]
 
 st.markdown("Realize a filtragem e verifique os gráficos:")
@@ -132,7 +132,7 @@ if st.checkbox("Exibir gráficos de dispersão"):
                          opacity=0.5)
         st.plotly_chart(fig)
     elif opcao_disp == "Dias listados vs Preço":
-        fig = px.scatter(ddf_vehicles, x='days_listed', y='price',
+        fig = px.scatter(df_vehicles, x='days_listed', y='price',
                          title='Dias listados vs Preço',
                          labels={'days_listed': 'Dias listados',
                                  'price': 'Preço (USD)'},
