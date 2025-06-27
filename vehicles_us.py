@@ -57,16 +57,16 @@ ano = st.sidebar.slider(
 )
 
 # Aplicação dos filtros:
-df_vehicles.copy()
+filtered_df = df_vehicles.copy()
 
 if modelo:
-    df_vehicles = df_vehicles[df_vehicles['model'].isin(model)]
+    filtered_df = filtered_df[filtered_df['model'].isin(modelo)]
 if combustivel:
-    df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
+    filtered_df = filtered_df[filtered_df['fuel'].isin(combustivel)]
 if ano:
-    df_vehicles = df_vehicles[
-        (df_vehicles['model_year'] >= ano[0]) &
-        (df_vehicles['model_year'] <= ano[1])
+    filtered_df = filtered_df[
+        (filtered_df['model_year'] >= ano[0]) &
+        (filtered_df['model_year'] <= ano[1])
     ]
 
 st.markdown("Realize a filtragem e verifique os gráficos:")
