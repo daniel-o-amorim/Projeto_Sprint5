@@ -1,52 +1,53 @@
-# Projeto_Sprint5
-# Relatório de Análise de Veículos nos EUA
+# Used Vehicles Analysis Report - USA
 
-Este projeto é um aplicativo web interativo construído com Streamlit, que realiza uma análise exploratória dos dados de veículos usados nos Estados Unidos. A aplicação permite visualizar histogramas, gráficos de dispersão e aplicar filtros nos dados de forma prática e intuitiva.
+This project is an interactive web application built with Streamlit, which performs an exploratory data analysis (EDA) of used vehicle listings in the United States. The app allows users to explore histograms, scatter plots, and apply filters to the dataset in a practical and intuitive way.
 
-## Funcionalidades
+## Features:
 
-- Filtragem por marca, tipo de combustível e faixa de anos
-- Visualização de histogramas para preços e quilometragens
-- Geração de gráficos de dispersão entre variáveis selecionáveis
-- Exibição de tabela de dados filtrados
-- Download dos dados filtrados em .csv
+- Filtering by brand, fuel type, and year range
+- Histogram visualization for prices and mileage
+- Generation of scatter plots with selectable variables
+- Display of filtered data table
+- Download of filtered data as a `.csv` file
 
-## Estrutura do Projeto
+## Project Structure:
+
 .
 ├── README.md
-├── vehicles_us.py # Código principal do app Streamlit
-├── vehicles_us.csv # Base de dados
-├── requirement.txt # Bibliotecas necessárias
+├── vehicles_us.py # Main Streamlit app code
+├── vehicles_us.csv # Dataset
+├── requirement.txt # Required libraries
 ├── notebooks/
-│ └── EDA.ipynb # Análise exploratória (Jupyter)
+│ └── EDA.ipynb # Exploratory Data Analysis notebook
 └── streamlit/
-└── config.toml # Configuração para Render
+└── config.toml # Configuration for Render
 
-## Aplicativo Online
+## Online Application
 
-Acesse o aplicativo em:  
-https://projeto-sprint5-danielamorim.onrender.com 
+Access the application here:  
+https://projeto-sprint5-danielamorim.onrender.com
 
-Para implantar este projeto na Render:
+To deploy this project on Render:
 
-1. Suba o repositório para o GitHub
-2. Acesse o site da Render e crie um novo Web Service
-3. Conecte o repositório ao serviço
-4. Configure os comandos:
+1. Push the repository to GitHub
+2. Go to Render and create a new Web Service
+3. Connect your repository to the service
+4. Set the following commands:
 
-- Build Command:
-pip install --upgrade pip && pip install -r requirement.txt
-- Start Command:
-streamlit run vehicles_us.py
+- **Build Command**:  
+  `pip install --upgrade pip && pip install -r requirement.txt`
 
-## Requisitos Atendidos
+- **Start Command**:  
+  `streamlit run vehicles_us.py`
 
-- Cabeçalho com texto
-- Pelo menos 1 histograma
-- Pelo menos 1 gráfico de dispersão
-- Pelo menos um botão ou caixa de seleção
-- Aplicativo acessível via navegador
-- Estrutura de arquivos exigida:
+## Requirements Fulfilled
+
+- Text header
+- At least one histogram
+- At least one scatter plot
+- At least one button or checkbox
+- Application accessible via browser
+- Required file structure:
 .
 ├── README.md
 ├── vehicles_us.py
@@ -57,16 +58,17 @@ streamlit run vehicles_us.py
 └── streamlit/
 └── config.toml
 
-## Fonte dos Dados
+## Data Source:
 
-O dataset `vehicles_us.csv` contém dados de veículos usados à venda nos Estados Unidos, incluindo preço, marca, tipo de combustível, quilometragem e ano de fabricação.
+The dataset `vehicles_us.csv` contains information about used vehicles for sale in the United States, including price, brand, fuel type, mileage, and year of manufacture.
 
-## Autor
+## Contact
 
-Daniel Amorim
-Bootcamp de Análise de Dados - TRIPLETEN
-Licenciado em Publicidade, Marketing e Relações Públicas
-Pós-Graduado em Branding (IPAM)
+**Daniel Amorim**  
+Data Analysis
+Bachelor in Advertising, Marketing and Public Relations  
+[LinkedIn Profile](https://www.linkedin.com/in/danieloamorim)
+
 
 
 
