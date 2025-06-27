@@ -60,9 +60,7 @@ ano = st.sidebar.slider(
 df_vehicles.copy()
 
 if modelo:
-    df_vehicles = df_vehicles[df_vehicles['model'].isin(marca)]
-if modelo:
-    df_vehicles = df_vehicles[df_vehicles['model'].isin(modelo)]
+    df_vehicles = df_vehicles[df_vehicles['model'].isin(model)]
 if combustivel:
     df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
 if ano:
