@@ -65,7 +65,7 @@ if combustivel:
     df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
 if ano:
     df_vehicles = df_vehicles
-        (df_vehicles['model_year'] >= ano[0]) &
+        (df_vehicles['model_year'] >= ano[0]) & 
         (df_vehicles['model_year'] <= ano[1])
     ]
 
