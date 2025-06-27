@@ -64,11 +64,10 @@ if modelo:
 if combustivel:
     df_vehicles = df_vehicles[df_vehicles['fuel'].isin(combustivel)]
 if ano:
-    df_vehicles = df_vehicles
+    df_vehicles = df_vehicles[
         (df_vehicles['model_year'] >= ano[0]) & 
         (df_vehicles['model_year'] <= ano[1])
     ]
-
 st.markdown("Realize a filtragem e verifique os gráficos:")
 
 # Histograma de preços:
