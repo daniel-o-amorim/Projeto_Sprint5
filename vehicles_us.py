@@ -57,7 +57,7 @@ ano = st.sidebar.slider(
 )
 
 # Aplicação dos filtros:
-filtered_df = df_vehicles.copy()
+df_vehicles.copy()
 
 if modelo:
     filtered_df = filtered_df[filtered_df['model'].isin(modelo)]
