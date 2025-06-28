@@ -16,7 +16,7 @@ This project is an interactive web application built with Streamlit, which perfo
 ├── README.md  
 ├── vehicles_us.py # Main Streamlit app code  
 ├── vehicles_us.csv # Dataset  
-├── requirement.txt # Required libraries  
+├── requirements.txt # Required libraries  
 ├── notebooks/  
 │ └── EDA.ipynb # Exploratory Data Analysis notebook  
 └── streamlit/  
@@ -35,7 +35,7 @@ To deploy this project on Render:
 4. Set the following commands:  
   
 - **Build Command**:  
-  `pip install --upgrade pip && pip install -r requirement.txt`
+  `pip install --upgrade pip && pip install -r requirements.txt`
   
 - **Start Command**:  
   `streamlit run vehicles_us.py`
@@ -52,7 +52,7 @@ To deploy this project on Render:
 ├── README.md  
 ├── vehicles_us.py  
 ├── vehicles_us.csv  
-├── requirement.txt  
+├── requirements.txt  
 ├── notebooks/  
 │ └── EDA.ipynb  
 └── streamlit/  
